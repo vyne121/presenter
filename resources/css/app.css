@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.neuro-box {
+    border-radius: 50px;
+    background: #F2E8CF;
+    box-shadow:  20px 20px 60px #cec5b0,
+    -20px -20px 60px #ffffee;
+}
