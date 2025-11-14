@@ -80,24 +80,35 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Irányítópult') }}
+                {{ __('Bejelentkezés') }}
             </x-responsive-nav-link>
         </div>
 
         @if($user)
             <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
                 <div class="px-4">
-                    <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ $user->name }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ $user->email }}</div>
+                    <div class="font-medium text-base text-gray-800 ">{{ $user->name }}</div>
+                    <div class="font-medium text-sm text-gray-600">{{ $user->email }}</div>
                 </div>
                 <div class="mt-3 space-y-1">
-                    <x-responsive-nav-link :href="route('profile.edit')">
+                    <x-responsive-nav-link :href="route('profile.edit')" class="text-[#BC4749]">
                         {{ __('Profil') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('contributions')" class="text-[#BC4749]">
+                        {{ __('Hozzájárulásaim') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('presents.my')" class="text-[#BC4749]">
+                        {{ __('Ajándékaim') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('presents.index')"
+                                           class="text-[#BC4749]">
+                        {{ __('Minden ajándék') }}
                     </x-responsive-nav-link>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <x-responsive-nav-link :href="route('logout')"
-                                               onclick="event.preventDefault(); this.closest('form').submit();">
+                                               onclick="event.preventDefault(); this.closest('form').submit();"
+                                               class="text-[#BC4749]">
                             {{ __('Kijelentkezés') }}
                         </x-responsive-nav-link>
                     </form>
