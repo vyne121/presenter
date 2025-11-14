@@ -43,7 +43,7 @@
 
                 <!-- Main card -->
                 <div class="relative rounded-3xl bg-[#386641] text-[#F2E8CF] p-6 sm:p-8 shadow-xl">
-                    <img src="{{ Vite::asset('resources/images/karacsony.webp') }}" alt="">
+                    <img src="{{ asset('images/karacsony.webp') }}" alt="">
                 </div>
             </div>
         </div>
