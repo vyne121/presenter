@@ -10,7 +10,8 @@
 <article
     class="mb-4 rounded-2xl bg-white border
                                @if($present->price >= 15000) border-[#BC4749]/70 @else border-[#A7C957]/70 @endif
-                               shadow-sm hover:shadow-md transition overflow-hidden neuro-box"
+                               shadow-sm hover:shadow-md transition overflow-hidden neuro-box
+                               @if($presentPriceLeft == 0) border-gray-400 @endif"
 >
     <div class="flex flex-col sm:flex-row justify-between gap-4 p-4 sm:p-5">
         {{-- Left side: info --}}
@@ -26,6 +27,12 @@
                                             Nagyobb ajándék
                     </span>
                 @endif
+                @if($presentPriceLeft == 0 && $presentPrice != 0)
+                    <span class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold
+                                                     bg-[#386641] text-[#F2E8CF] uppercase tracking-wide">
+                                            Már megvan
+                    </span>
+                @endif
             </div>
             <p class="text-sm font-bold text-[#386641]">
                 {{$present->description}}
@@ -38,9 +45,16 @@
                 számára
             </p>
 
+            @auth()
+                @if(auth()->id() !== $present->user_id)
+                    <p class="font-semibold text-[#386641] text-sm">
+                        Beszálltak: {{ $present->contributions->pluck('user.name')->join(', ') }}
+                    </p>
+                @endif
+            @endauth
             @if($present->link)
                 <a href="{{ $present->link }}" target="_blank"
-                   class="inline-flex items-center gap-1 text-xs font-semibold text-[#6A994E] hover:text-[#386641] underline underline-offset-2">
+                class="inline-flex items-center gap-1 text-xs font-semibold text-[#6A994E] hover:text-[#386641] underline underline-offset-2">
                     Termék megnyitása
                 </a>
             @endif
