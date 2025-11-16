@@ -75,7 +75,6 @@
             </div>
 
             <div class="flex items-center gap-2">
-                {{-- “Bought” checkbox – purely visual, up to you what you do backend-wise --}}
                 @if($user?->id == $present->user_id || $user?->admin)
                     <a href="{{ route('presents.edit', $present) }}"
                        class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold
@@ -110,7 +109,7 @@
                     @endif
                 @endauth
                 @auth
-                    @if(auth()->id() !== $present->user_id && $presentPriceLeft > 0)
+                    @if(auth()->id() !== $present->user_id && ($presentPriceLeft > 0 || $presentPrice == 0 || $presentPrice == null))
                         <label
                             x-data="{
                 show: false,
@@ -143,7 +142,7 @@
                                     {{-- percent input --}}
                                     <input
                                         type="number"
-                                        min="1"
+                                        min="0"
                                         max="100"
                                         x-model.number="contribution"
                                         @input="
