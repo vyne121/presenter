@@ -6,6 +6,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\PresentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 
 
 Route::get('/dashboard', function () {
@@ -35,3 +36,5 @@ Route::get('/help', [HelpController::class, 'index'])->name('help.index');
 
 
 require __DIR__.'/auth.php';
+
+URL::forceScheme('https');
