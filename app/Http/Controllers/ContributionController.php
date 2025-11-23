@@ -41,7 +41,7 @@ class ContributionController extends Controller
     {
         $validated = $request->validate([
             'present_id' => ['required', 'exists:presents,id'],
-            'amount'     => ['required', 'integer', 'min:1'],
+            'amount'     => ['required', 'integer', 'min:0'],
         ]);
 
         $present = Present::findOrFail($validated['present_id']);
