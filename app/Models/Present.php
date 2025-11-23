@@ -17,10 +17,10 @@ class Present extends Model
     ];
 
     public static array $rules = [
-        'name' => 'required|string|max:255',
-        'link' => 'nullable|url|max:255',
+        'name' => 'required|string|max:512',
+        'link' => 'nullable|url|max:512',
         'price' => 'nullable|numeric|min:0',
-        'description' => 'nullable|string|max:610',
+        'description' => 'nullable|string|max:1220',
     ];
 
     public function owner()
