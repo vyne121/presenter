@@ -15,6 +15,15 @@ class PresentController extends Controller
     public function index(Request $request)
     {
         $query = Present::with(['owner', 'contributions'])
+            ->selectRaw('presents.*,
+        CASE
+            WHEN price > 0
+                 AND (SELECT COALESCE(SUM(amount),0) FROM contributions WHERE contributions.present_id = presents.id) >= price
+            THEN 1
+            ELSE 0
+        END AS is_fully_funded
+    ')
+            ->orderBy('is_fully_funded', 'asc')
             ->orderBy('created_at', 'desc');
 
         // 1) SEARCH: name, description, owner name
@@ -28,7 +37,6 @@ class PresentController extends Controller
             });
         }
 
-        // 2) OPTIONAL FILTER: price category (cheap / expensive)
         if ($priceFilter = $request->input('price')) {
             if ($priceFilter === 'cheap') {
                 $query->where('price', '<', 15000);
@@ -37,7 +45,6 @@ class PresentController extends Controller
             }
         }
 
-        // 3) OPTIONAL FILTER: only my presents
         if ($request->boolean('mine') && $request->user()) {
             $query->where('user_id', $request->user()->id);
         }
